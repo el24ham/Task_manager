@@ -14,6 +14,7 @@ def insert_task(person, start, finish, task):
     task1 = Task(person, task, start, finish)
     session.add(task1)
     session.commit()
+    
    
 def get_all_tasks():
     s = ""
