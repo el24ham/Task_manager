@@ -20,15 +20,15 @@ def plot_show1(person):
         list=[]
         
         time1=task.start
-        time1=datetime.strptime(time1,'%y/%m/%d')
-        list.append(time1)
+        time11=datetime.strptime(time1,'%y/%m/%d')
+        list.append(time11)
         time2=task.start
-        time2=datetime.strptime(time2,'%y/%m/%d')
-        list.append(time2)
+        time22=datetime.strptime(time2,'%y/%m/%d')
+        list.append(time22)
         list.append(task.task)
         dict[task.id] = list
     
-    sort_orders=sorted(dict.items[1](),key=lambda x : x[1])
+    sort_orders=sorted(dict.items(),key=lambda x : x[1])
     x=[]
     y=[]
     lables=[]
