@@ -10,4 +10,4 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 def plot_show():
-    pass
+    print("hello")
