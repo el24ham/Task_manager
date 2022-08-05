@@ -96,7 +96,9 @@ while True:
     elif msg=="plot" :
         
         clear()
-        p.show_plot()
+        print("Enter name: ")
+        person = input()
+        p.plot_show1(person)
              
     else:
         clear()
