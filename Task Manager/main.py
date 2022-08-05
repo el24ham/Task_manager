@@ -96,11 +96,7 @@ while True:
     elif msg=="plot" :
         
         clear()
-<<<<<<< HEAD
         print("Enter name: ")
-=======
-        print("Name: ")
->>>>>>> 204d46ea90247ba4b841e37aa4d86866bb744038
         person = input()
         p.plot_show1(person)
              
