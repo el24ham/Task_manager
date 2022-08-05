@@ -14,15 +14,20 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 def plot_show1(person):
-    object=()
-    performance=[]
+    dict={}
     for task in session.query(Task).filter(Task.name == person):
-        s=task.start + "-" + task.finish
+        list=[]
+        #s=task.start + "-" + task.finish
         time1=task.start
         time1=datetime.strptime(time1,'%y/%m/%d')
+        list.append(time1)
         time2=task.start
         time2=datetime.strptime(time2,'%y/%m/%d')
+        list.append(time2)
         time_interval = time2 - time1
-        performance.append(time_interval)
-        s += (str(task.id) + " " + task.name + " " + task.task + " " + task.start + " " + task.finish + "\n")
-    object = (a)
+        list.append(time_interval)
+        list.append(task.task)
+        dict[task.id] = list
+    #sort_orders=sorted    
+        
+    
