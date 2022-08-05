@@ -18,7 +18,7 @@ def insert_task(person, start, finish, task):
 def get_all_tasks():
     s = ""
     for task in session.query(Task).order_by(Task.id):
-        s += (task.name + " " + task.task + " " + task.start + " " + task.finish + "\n")    
+        s += (str(task.id) + " " + task.name + " " + task.task + " " + task.start + " " + task.finish + "\n")    
     return s
 
 def get_person_tasks(person):
@@ -31,4 +31,7 @@ def remove_task(id):
     session.query(Task).filter(Task.id == id).delete()
     session.commit()
 
+def remove_all_tasks(person):
+    session.query(Task).filter(Task.name == person).delete()
+    session.commit()
     
