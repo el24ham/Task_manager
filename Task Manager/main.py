@@ -18,7 +18,7 @@ exit ------------- To exit task manager
     print("Enter your command: ")
 
 clear()
-print("Hi buddy")
+print("Hiiiii")
 hint()
 
 while True:
