@@ -60,7 +60,7 @@ while True:
         else:
             print(db.get_person_tasks(person))
             
-        print("How do you want to remove?(1/2)\n1.all tasks\n2.Specific task")
+        print("How do you want to remove?(1/2)\n1.All tasks\n2.Specific task")
         if input()=="1":
             db.remove_all_tasks(person)
             clear()
@@ -70,7 +70,7 @@ while True:
             id = input()
             db.remove_task(id)
             clear()
-            print("task removed")
+            print("Task removed")    
         hint()
      
     elif msg=="tasks" :
