@@ -25,4 +25,3 @@ def plot_show1(person):
         time_interval = time2 - time1
         performance.append(time_interval)
         s += (str(task.id) + " " + task.name + " " + task.task + " " + task.start + " " + task.finish + "\n")
-    object = (a)

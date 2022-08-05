@@ -37,9 +37,9 @@ while True:
         person = input()
         print("Task: ")
         task = input()
-        print("Start Time: ")
+        print("Start Time:(Standard format: Year/Month/Day) ")
         start = input()
-        print("Finish Time: ")
+        print("Finish Time:(Standard format: Year/Month/Day) ")
         finish = input()
         db.insert_task(person, start, finish, task)
         

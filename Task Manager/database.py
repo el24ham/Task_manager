@@ -18,7 +18,7 @@ def insert_task(person, start, finish, task):
 def get_all_tasks():
     s = ""
     for task in session.query(Task).order_by(Task.id):
-        s += (task.name + " " + task.task + " " + task.start + " " + task.finish + "\n")    
+        s += (str(task.id) + " " + task.name + " " + task.task + " " + task.start + " " + task.finish + "\n")    
     return s
 
 def get_person_tasks(person):
