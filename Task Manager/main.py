@@ -101,9 +101,15 @@ while True:
     elif msg=="plot" :
         
         clear()
-        print("Enter name: ")
-        person = input()
-        p.plot_show1(person)
+        print("How do you want to see plot?(1/2)\n1.All people\n2.Specific person")
+        if input()=="1":
+            clear()
+            p.plot_show()
+        else:
+            clear()
+            print("Name: ")
+            person = input()
+            p.plot_show1(person)    
         hint()
              
     else:

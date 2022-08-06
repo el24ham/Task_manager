@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 from turtle import color
+from unicodedata import name
 from tabulate import tabulate
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -16,7 +17,6 @@ session = Session()
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
-
 
 def plot_show1(person):
     dic={}
@@ -69,4 +69,57 @@ def plot_show1(person):
     clear()
     print(tabulate(df,headers='keys',tablefmt='fancy_grid'))
     
+def plot_show():
+    dic={}
+    for task in session.query(Task).order_by(Task.id):
+        list=[]
+        dic[task.id]=[]
+        format = '%Y/%m/%d'
+        time1=task.start
+        time11=datetime.strptime(time1, format).date()
+        list.append(time11)
+        time2=task.finish
+        time22=datetime.strptime(time2, format).date()
+        list.append(time22)
+        list.append(task.task)
+        list.append(task.name)
+        dic.update({task.id:list})
     
+    
+    sort_orders=sorted(dic.items(),key=lambda x : x[1])
+    
+    start_list=[]
+    finish_list=[]
+    duration_list=[]
+    task_list=[]
+    id_list=[]
+    name_list=[]
+    for i in range(len(sort_orders)):
+        id=sort_orders[i][0]
+        start=sort_orders[i][1][0]
+        finish=sort_orders[i][1][1]
+        task=sort_orders[i][1][2]
+        name=sort_orders[i][1][3]
+        
+        #s=start.strftime("%Y/%m/%d") + "-" + finish.strftime("%Y/%m/%d")
+        #name_list.append(s)
+        id_list.append(id)
+        name_list.append(name)
+        start_list.append(start)
+        finish_list.append(finish)
+        time_interval = str(finish-start)
+        d=time_interval.split(" ")
+        duration_list.append(int(d[0]))
+        task_list.append(task)
+    
+        
+    dict={'Task id':id_list,
+          'Name':name_list,
+          'Task':task_list,
+          'Start':start_list,
+          'Finish':finish_list,
+          'Duration':duration_list}
+    df=pd.DataFrame(dict,columns=['Task id','Name','Task','Start','Finish','Duration'])
+    
+    clear()
+    print(tabulate(df,headers='keys',tablefmt='fancy_grid'))    
