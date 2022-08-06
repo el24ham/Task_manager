@@ -19,11 +19,12 @@ def plot_show1(person):
     for task in session.query(Task).filter(Task.name == person):
         list=[]
         dic[task.id]=[]
+        format = '%Y/%m/%d'
         time1=task.start
-        time11=datetime.strptime(time1,'%y/%m/%d')
+        time11=datetime.datetime.strptime(time1, format).date()
         list.append(time11)
         time2=task.finish
-        time22=datetime.strptime(time2,'%y/%m/%d')
+        time22=datetime.datetime.strptime(time2, format).date()
         list.append(time22)
         list.append(task.task)
         dic.update({task.id:list})
@@ -39,6 +40,7 @@ def plot_show1(person):
         start=sort_orders[i][1][0]
         finish=sort_orders[i][1][1]
         task=sort_orders[i][1][2]
+        
         
         s=start.strftime("%Y/%m/%d") + "-" + finish.strftime("%Y/%m/%d")
         x_list.append(s)

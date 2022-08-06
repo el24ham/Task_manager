@@ -41,36 +41,10 @@ while True:
         print("Task: ")
         task = input()
         print("Start Time:(Standard format: Year/Month/Day) ")
-        first = input()
-    
-        start = ""
-        start += str(int(first.split("/")[0]) % 100) + "/" 
-        
-        if int(first.split("/")[1]) < 10:
-            start += "0" + str(int(first.split("/")[1])) + "/"
-        else:
-            start += str(int(first.split("/")[1])) + "/"
-            
-        if int(first.split("/")[2]) < 10:
-            start += "0" + str(int(first.split("/")[2]))
-        else:
-            start += str(int(first.split("/")[2]))
+        start = input()
                  
         print("Finish Time:(Standard format: Year/Month/Day) ")
-        first = input()
-        
-        finish = ""
-        finish += str(int(first.split("/")[0]) % 100) + "/" 
-        
-        if int(first.split("/")[1]) < 10:
-            finish += "0" + str(int(first.split("/")[1])) + "/"
-        else:
-            finish += str(int(first.split("/")[1])) + "/"
-            
-        if int(first.split("/")[2]) < 10:
-            finish += "0" + str(int(first.split("/")[2]))
-        else:
-            finish += str(int(first.split("/")[2]))
+        finish = input()
     
         db.insert_task(person, start, finish, task)
         
