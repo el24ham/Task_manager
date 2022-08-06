@@ -44,7 +44,7 @@ while True:
         first = input()
     
         start = ""
-        start += str(int(first.split("/")[0]) - 2000) + "/" 
+        start += str(int(first.split("/")[0]) % 100) + "/" 
         
         if int(first.split("/")[1]) < 10:
             start += "0" + str(int(first.split("/")[1])) + "/"
@@ -60,7 +60,7 @@ while True:
         first = input()
         
         finish = ""
-        finish += str(int(first.split("/")[0]) - 2000) + "/" 
+        finish += str(int(first.split("/")[0]) % 100) + "/" 
         
         if int(first.split("/")[1]) < 10:
             finish += "0" + str(int(first.split("/")[1])) + "/"
