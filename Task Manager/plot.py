@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 from turtle import color
+from tabulate import tabulate
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tabledef import Task
@@ -53,12 +54,14 @@ def plot_show1(person):
         d=time_interval.split(" ")
         duration_list.append(int(d[0]))
         task_list.append(task)
+    
         
     dict={'Task id':id_list,
           'Task':task_list,
           'Start':start_list,
           'Finish':finish_list,
           'Duration':duration_list}
-    df=pd.DataFrame(dict)
-    print(df)
+    
+    df=pd.DataFrame(dict,columns=['Task id','Task','Start','Finish','Duration'])
+    print(tabulate(df,headers='keys',tablefmt='psql'))
     
