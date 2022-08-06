@@ -13,7 +13,22 @@ engine = create_engine('sqlite:///tasks.db', echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
+def hint():
+    
+    print("Available Commands: ")
+    print("""
+add -------------- To add task
+remove ----------- To remove task
+person task ------ To see person's task
+tasks ------------ To see availble tasks
+plot ------------- To show plot
+exit ------------- To exit task manager
+""")
+    print("Enter your command: ")
+           
 def plot_show1(person):
     dic={}
     for task in session.query(Task).filter(Task.name == person):
@@ -60,5 +75,7 @@ def plot_show1(person):
           'Finish':finish_list,
           'Duration':duration_list}
     df=pd.DataFrame(dict)
+    clear()
     print(df)
+    hint()
     
