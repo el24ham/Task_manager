@@ -14,6 +14,9 @@ engine = create_engine('sqlite:///tasks.db', echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def plot_show1(person):
     dic={}
@@ -61,7 +64,9 @@ def plot_show1(person):
           'Start':start_list,
           'Finish':finish_list,
           'Duration':duration_list}
-    
     df=pd.DataFrame(dict,columns=['Task id','Task','Start','Finish','Duration'])
+    
+    clear()
     print(tabulate(df,headers='keys',tablefmt='psql'))
+    
     
