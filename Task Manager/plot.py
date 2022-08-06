@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tabledef import Task
 from tabledef import *
-import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 engine = create_engine('sqlite:///tasks.db', echo=True)
@@ -21,10 +21,10 @@ def plot_show1(person):
         dic[task.id]=[]
         format = '%Y/%m/%d'
         time1=task.start
-        time11=datetime.datetime.strptime(time1, format).date()
+        time11=datetime.strptime(time1, format).date()
         list.append(time11)
         time2=task.finish
-        time22=datetime.datetime.strptime(time2, format).date()
+        time22=datetime.strptime(time2, format).date()
         list.append(time22)
         list.append(task.task)
         dic.update({task.id:list})
@@ -32,32 +32,33 @@ def plot_show1(person):
     
     sort_orders=sorted(dic.items(),key=lambda x : x[1])
     
-    x_list=[]
-    y_list=[]
-    labels=[]
+    #name_list=[]
+    start_list=[]
+    finish_list=[]
+    duration_list=[]
+    task_list=[]
+    id_list=[]
     for i in range(len(sort_orders)):
         id=sort_orders[i][0]
         start=sort_orders[i][1][0]
         finish=sort_orders[i][1][1]
         task=sort_orders[i][1][2]
         
-        
-        s=start.strftime("%Y/%m/%d") + "-" + finish.strftime("%Y/%m/%d")
-        x_list.append(s)
+        #s=start.strftime("%Y/%m/%d") + "-" + finish.strftime("%Y/%m/%d")
+        #name_list.append(s)
+        id_list.append(id)
+        start_list.append(start)
+        finish_list.append(finish)
         time_interval = str(finish-start)
         d=time_interval.split(" ")
-        y_list.append(int(d[0]))
-        labels.append(task)
+        duration_list.append(int(d[0]))
+        task_list.append(task)
+        
+    dict={'Task id':id_list,
+          'Task':task_list,
+          'Start':start_list,
+          'Finish':finish_list,
+          'Duration':duration_list}
+    df=pd.DataFrame(dict)
+    print(df)
     
-    x = np.arange(len(x_list)) 
-    width = 0.35 
-    fig, ax = plt.subplots()
-    rect = ax.bar(x - width/2, y_list, width, label='time')
-    ax.set_ylabel('duration')
-    ax.set_title('name')
-    ax.set_xticks(x, x_list)
-    ax.legend()
-    ax.bar_label(rect, padding=3)
-    fig.tight_layout()
-
-    plt.show()
