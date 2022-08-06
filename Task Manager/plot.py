@@ -67,6 +67,6 @@ def plot_show1(person):
     df=pd.DataFrame(dict,columns=['Task id','Task','Start','Finish','Duration'])
     
     clear()
-    print(tabulate(df,headers='keys',tablefmt='psql'))
+    print(tabulate(df,headers='keys',tablefmt='fancy_grid'))
     
     

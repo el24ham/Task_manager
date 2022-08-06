@@ -104,6 +104,7 @@ while True:
         print("Enter name: ")
         person = input()
         p.plot_show1(person)
+        hint()
              
     else:
         clear()
