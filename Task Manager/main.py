@@ -1,5 +1,6 @@
 from posixpath import split
 import database as db
+
 import plot as p
 import os
 
@@ -7,6 +8,7 @@ def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
            
 def hint():
+    
     print("Available Commands: ")
     print("""
 add -------------- To add task
@@ -40,7 +42,7 @@ while True:
         task = input()
         print("Start Time:(Standard format: Year/Month/Day) ")
         first = input()
-        
+    
         start = ""
         start += str(int(first.split("/")[0]) - 2000) + "/" 
         
@@ -53,7 +55,7 @@ while True:
             start += "0" + str(int(first.split("/")[2]))
         else:
             start += str(int(first.split("/")[2]))
-            
+                 
         print("Finish Time:(Standard format: Year/Month/Day) ")
         first = input()
         
@@ -69,7 +71,7 @@ while True:
             finish += "0" + str(int(first.split("/")[2]))
         else:
             finish += str(int(first.split("/")[2]))
-        
+    
         db.insert_task(person, start, finish, task)
         
         clear()
