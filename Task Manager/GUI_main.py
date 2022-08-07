@@ -17,11 +17,10 @@ while True:
   
         label = Label(add,
                 text ="Name:",
-                foreground="blue",
-                background="green")
+                foreground="blue")
         entry = Entry(add)
 
-        label.pack(fill=BOTH, expand=True)
+        label.pack()
         entry.pack()
 
     mainloop()
