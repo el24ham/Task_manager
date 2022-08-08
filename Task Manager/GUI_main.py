@@ -10,30 +10,30 @@ from tkinter import ttk
 import GUI_plot as gp
 #Menu(title="Task Manager")
 
-layout = [[sg.Text("Hello there, welcome to our app")], [sg.Text("Select the option you want:")],[sg.Button("add")], [sg.Button("remove")], [sg.Button("person task")], [sg.Button("tasks")], [sg.Button("table")], [sg.Button("table1")], [sg.Button("exit")]]
-window = sg.Window("Task Manager", layout, margins=(300, 150))
+layout = [[sg.Text('Hello there, welcome to our app!', text_color='blue', font=('Any 15'))],
+          [sg.Text('Please select the option you want:', text_color='lightgreen', font=('Any 12'))],
+          [[sg.Button('Add', button_color='green')], [sg.Button('Remove', button_color='red')], [sg.Button('Person Task', button_color='blue')], [sg.Button('Tasks', button_color='teal')], [sg.Button('Plot', button_color='purple')], [sg.Button('Exit', button_color='dark red')]]]
 
+window = sg.Window('Task Manager', layout,margins=(300, 150), element_justification='center')
 
 while True:
     event, values = window.read()
-    if event == "exit" or event == sg.WIN_CLOSED:
+    if event == "Exit" or event == sg.WIN_CLOSED:
         break
-    elif event == "add": 
+    elif event == "Add": 
         
             
-        def save_info():
-            
-            
+        def save_info():            
             name_text=entry_n.get()
             task_text=entry_t.get()
             start_text=entry_s.get()
             finish_text=entry_f.get()
             # l = Label(add,text=name_text+"-"+task_text+"-"+start_text+"-"+finish_text )
             # l.pack()
-            # name_text.delete(0, END)
-            # task_text.delete(0, END)
-            # start_text.delete(0, END)
-            # finish_text.delete(0, END)
+            entry_n.delete(0, END)
+            entry_t.delete(0, END)
+            entry_s.delete(0, END)
+            entry_f.delete(0, END)
             db.insert_task(name_text,start_text,finish_text,task_text)
             label = Label(add, text="Task saved sucessfully!")
             label.pack()
@@ -46,28 +46,28 @@ while True:
             text ="Name:",
             foreground="blue")
         label1.pack()
-        entry_n=ttk.Entry(add)
+        entry_n=Entry(add)
         entry_n.pack()
         
         label2 = Label(add,
             text ="Task:",
             foreground="red")
         label2.pack()
-        entry_t=ttk.Entry(add)
+        entry_t=Entry(add)
         entry_t.pack()
         
         label3 = Label(add,
             text ="Start Time:",
             foreground="green")
         label3.pack()
-        entry_s=ttk.Entry(add)
+        entry_s=Entry(add)
         entry_s.pack()
         
         label4 = Label(add,
             text ="Finish Time:",
             foreground="purple")
         label4.pack()
-        entry_f=ttk.Entry(add)
+        entry_f=Entry(add)
         entry_f.pack()
         """"
         label3 = Label(add,
@@ -119,14 +119,15 @@ while True:
         finish.config(command = year_list.yview)
         """
         
-        bt = ttk.Button(add,
+        bt = Button(add,
                     text ="Submit", command=save_info)
         bt.pack()
 
-    elif event == "remove":
+    elif event == "Remove":
         def remove_info():
             person=entry.get()
             db.remove_task(person)
+            entry.delete(0, END)
             label = Label(eliminate, text="Task removed sucessfully!")
             label.pack()
             
@@ -141,13 +142,16 @@ while True:
             text ="Task ID:",
             foreground="blue")
         label2.pack()
-        entry = ttk.Entry(eliminate)
+        entry = Entry(eliminate)
         entry.pack() 
-        bt = ttk.Button(eliminate,
+        bt = Button(eliminate,
                     text ="Submit", command=remove_info)
         bt.pack()
     
-    elif event == "tasks": 
+    elif event == "Tasks": 
+        def destroy():
+            show_tasks.destroy()
+
         show_tasks = Tk()
         show_tasks.geometry("600x300")
         show_tasks.title("Tasks")
@@ -155,14 +159,16 @@ while True:
         label1 = Label(show_tasks,
             text = db.get_all_tasks())
         label1.pack() 
+        bt = Button(show_tasks,
+                    text ="OK", command=destroy)
+        bt.pack()
         
-    elif event == "person task":
-        
+    elif event == "Person Task":
         def show_person_tasks():
             name=name_e.get()
             label2 = Label(show_task,
                 text = db.get_person_tasks(name))
-            #name.delete(0, END)
+            name_e.delete(0, END)
             label2.pack() 
             
         show_task = Tk()
@@ -173,10 +179,10 @@ while True:
             text ="Name:",
             foreground="blue")
         label1.pack()
-        name_e = ttk.Entry(show_task)
+        name_e = Entry(show_task)
         name_e.pack()
         
-        bt = ttk.Button(show_task,
+        bt = Button(show_task,
                     text ="Submit", command=show_person_tasks)
         bt.pack()
     
