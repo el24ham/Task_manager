@@ -6,7 +6,6 @@ from turtle import color, right, title
 import PySimpleGUI as sg
 from tkinter import *
 import database as db
-from tkinter import ttk
 
 #Menu(title="Task Manager")
 
@@ -21,19 +20,17 @@ while True:
     elif event == "add": 
         
             
-        def save_info():
-            
-            
+        def save_info():            
             name_text=entry_n.get()
             task_text=entry_t.get()
             start_text=entry_s.get()
             finish_text=entry_f.get()
             # l = Label(add,text=name_text+"-"+task_text+"-"+start_text+"-"+finish_text )
             # l.pack()
-            # name_text.delete(0, END)
-            # task_text.delete(0, END)
-            # start_text.delete(0, END)
-            # finish_text.delete(0, END)
+            entry_n.delete(0, END)
+            entry_t.delete(0, END)
+            entry_s.delete(0, END)
+            entry_f.delete(0, END)
             db.insert_task(name_text,start_text,finish_text,task_text)
             label = Label(add, text="Task saved sucessfully!")
             label.pack()
@@ -46,28 +43,28 @@ while True:
             text ="Name:",
             foreground="blue")
         label1.pack()
-        entry_n=ttk.Entry(add)
+        entry_n=Entry(add)
         entry_n.pack()
         
         label2 = Label(add,
             text ="Task:",
             foreground="red")
         label2.pack()
-        entry_t=ttk.Entry(add)
+        entry_t=Entry(add)
         entry_t.pack()
         
         label3 = Label(add,
             text ="Start Time:",
             foreground="green")
         label3.pack()
-        entry_s=ttk.Entry(add)
+        entry_s=Entry(add)
         entry_s.pack()
         
         label4 = Label(add,
             text ="Finish Time:",
             foreground="purple")
         label4.pack()
-        entry_f=ttk.Entry(add)
+        entry_f=Entry(add)
         entry_f.pack()
         """"
         label3 = Label(add,
@@ -119,7 +116,7 @@ while True:
         finish.config(command = year_list.yview)
         """
         
-        bt = ttk.Button(add,
+        bt = Button(add,
                     text ="Submit", command=save_info)
         bt.pack()
 
@@ -127,6 +124,7 @@ while True:
         def remove_info():
             person=entry.get()
             db.remove_task(person)
+            entry.delete(0, END)
             label = Label(eliminate, text="Task removed sucessfully!")
             label.pack()
             
@@ -141,9 +139,9 @@ while True:
             text ="Task ID:",
             foreground="blue")
         label2.pack()
-        entry = ttk.Entry(eliminate)
+        entry = Entry(eliminate)
         entry.pack() 
-        bt = ttk.Button(eliminate,
+        bt = Button(eliminate,
                     text ="Submit", command=remove_info)
         bt.pack()
     
@@ -162,7 +160,7 @@ while True:
             name=name_e.get()
             label2 = Label(show_task,
                 text = db.get_person_tasks(name))
-            #name.delete(0, END)
+            name_e.delete(0, END)
             label2.pack() 
             
         show_task = Tk()
@@ -173,10 +171,10 @@ while True:
             text ="Name:",
             foreground="blue")
         label1.pack()
-        name_e = ttk.Entry(show_task)
+        name_e = Entry(show_task)
         name_e.pack()
         
-        bt = ttk.Button(show_task,
+        bt = Button(show_task,
                     text ="Submit", command=show_person_tasks)
         bt.pack()
     
