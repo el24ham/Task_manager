@@ -12,7 +12,7 @@ import GUI_plot as gp
 
 layout = [[sg.Text('Hello there, welcome to our app!', text_color='blue', font=('Any 15'))],
           [sg.Text('Please select the option you want:', text_color='lightgreen', font=('Any 12'))],
-          [[sg.Button('Add', button_color='green')], [sg.Button('Remove', button_color='red')], [sg.Button('Person Task', button_color='blue')], [sg.Button('Tasks', button_color='teal')], [sg.Button('Plot', button_color='purple')], [sg.Button('Exit', button_color='dark red')]]]
+          [[sg.Button('Add', button_color='green')], [sg.Button('Remove', button_color='red')], [sg.Button('Person Task', button_color='blue')], [sg.Button('Tasks', button_color='teal')], [sg.Button('Plot', button_color='purple')], [sg.Button('Exit', button_color='dark red')], [sg.Button('table', button_color='dark red')], [sg.Button('table1', button_color='dark red')]]]
 
 window = sg.Window('Task Manager', layout,margins=(300, 150), element_justification='center')
 
