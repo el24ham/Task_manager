@@ -7,10 +7,10 @@ import PySimpleGUI as sg
 from tkinter import *
 import database as db
 from tkinter import ttk
-
+import GUI_plot as gp
 #Menu(title="Task Manager")
 
-layout = [[sg.Text("Hello there, welcome to our app")], [sg.Text("Select the option you want:")],[sg.Button("add")], [sg.Button("remove")], [sg.Button("person task")], [sg.Button("tasks")], [sg.Button("plot")], [sg.Button("exit")]]
+layout = [[sg.Text("Hello there, welcome to our app")], [sg.Text("Select the option you want:")],[sg.Button("add")], [sg.Button("remove")], [sg.Button("person task")], [sg.Button("tasks")], [sg.Button("table")], [sg.Button("table1")], [sg.Button("exit")]]
 window = sg.Window("Task Manager", layout, margins=(300, 150))
 
 
@@ -180,8 +180,81 @@ while True:
                     text ="Submit", command=show_person_tasks)
         bt.pack()
     
-    elif event == "Plot": 
-        pass
+    elif event == "table": 
+        show_table = Tk()
+        show_table.geometry("600x300")
+        show_table.title("table")
+        table_frame = Frame(show_table)
+        table_frame.pack()
+        my_table = ttk.Treeview(table_frame)
+        my_table['columns'] = ('id', 'name', 'task', 'start', 'finish' , 'duration')
+        
+        my_table.column("#0", width=0,  stretch=NO)
+        my_table.column("id",anchor=CENTER, width=80)
+        my_table.column("name",anchor=CENTER,width=80)
+        my_table.column("task",anchor=CENTER,width=80)
+        my_table.column("start",anchor=CENTER,width=80)
+        my_table.column("finish",anchor=CENTER,width=80)
+        my_table.column("duration",anchor=CENTER,width=80)
+        
+        my_table.heading("#0",text="",anchor=CENTER)
+        my_table.heading("id",text="Id",anchor=CENTER)
+        my_table.heading("name",text="Name",anchor=CENTER)
+        my_table.heading("task",text="Task",anchor=CENTER)
+        my_table.heading("start",text="Start",anchor=CENTER)
+        my_table.heading("finish",text="Finish",anchor=CENTER)
+        my_table.heading("duration",text="Duration",anchor=CENTER)
+        
+        id_list,name_list,task_list,start_list,finish_list,duration_list=gp.plot_show()
+        for i in range(len(id_list)):
+            my_table.insert(parent='',index='end',iid=i,text='',
+            values=(str(id_list[i]),str(name_list[i]),str(task_list[i]),str(start_list[i]),str(finish_list[i]),str(duration_list[i])))
+        
+        my_table.pack()    
+    
+    
+    elif event == "table1": 
+        def person_info():
+            table1_frame = Frame(show_table1)
+            table1_frame.pack()
+            my_table1 = ttk.Treeview(table1_frame)
+            my_table1['columns'] = ('id', 'task', 'start', 'finish' , 'duration')
+        
+            my_table1.column("#0", width=0,  stretch=NO)
+            my_table1.column("id",anchor=CENTER, width=80)
+            my_table1.column("task",anchor=CENTER,width=80)
+            my_table1.column("start",anchor=CENTER,width=80)
+            my_table1.column("finish",anchor=CENTER,width=80)
+            my_table1.column("duration",anchor=CENTER,width=80)
+        
+            my_table1.heading("#0",text="",anchor=CENTER)
+            my_table1.heading("id",text="Id",anchor=CENTER)
+            my_table1.heading("task",text="Task",anchor=CENTER)
+            my_table1.heading("start",text="Start",anchor=CENTER)
+            my_table1.heading("finish",text="Finish",anchor=CENTER)
+            my_table1.heading("duration",text="Duration",anchor=CENTER)
+            # text=Text(show_table1, width=80, height=15)
+            # text.pack()
+            person=table_e.get()
+            id_list,task_list,start_list,finish_list,duration_list=gp.plot1_show(person)
+            for i in range(len(id_list)):
+                # text.insert(END,str(id_list)+" "+str(task_list)+" "+str(start_list)+" "+str(finish_list)+" "+str(duration_list))
+                my_table1.insert(parent='',index='end',iid=i,text='',
+                values=(str(id_list[i]),str(task_list[i]),str(start_list[i]),str(finish_list[i]),str(duration_list[i])))
+            my_table1.pack()
+            
+        show_table1 = Tk()
+        show_table1.geometry("600x300")
+        show_table1.title("table")
+        label1 = Label(show_table1,
+            text ="person name:",
+            foreground="blue")
+        label1.pack()
+        table_e = ttk.Entry(show_table1)
+        table_e.pack() 
+        bt = ttk.Button(show_table1,
+                    text ="Submit", command=person_info)
+        bt.pack()
     
     mainloop()
                      
