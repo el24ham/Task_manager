@@ -1,6 +1,7 @@
 from cProfile import label
 from cgitb import text
 from os import remove
+from tracemalloc import start
 from turtle import color, right, title
 import PySimpleGUI as sg
 from tkinter import *
@@ -18,11 +19,11 @@ while True:
     elif event == "add": 
         
         def save_info():
-            #db.insert_task(name,start,finish,task)
-            name.delete(0, END)
-            task.delete(0, END)
-            start.delete(0, END)
-            finish.delete(0, END)
+            db.insert_task(name,start,finish,task)
+            name1.delete(0, END)
+            task1.delete(0, END)
+            start1.delete(0, END)
+            finish1.delete(0, END)
             label = Label(add, text="Task saved sucessfully!")
             label.pack()
             
@@ -34,29 +35,33 @@ while True:
             text ="Name:",
             foreground="blue")
         label1.pack()
-        name = Entry(add)
-        name.pack()
+        name1 = Entry(add)
+        name = Entry(add).get()
+        name1.pack()
         
         label2 = Label(add,
             text ="Task:",
             foreground="red")
         label2.pack()
-        task = Entry(add)
-        task.pack()
+        task1 = Entry(add)
+        task = Entry(add).get()
+        task1.pack()
         
         label3 = Label(add,
             text ="Start Time:",
             foreground="green")
         label3.pack()
-        start = Entry(add)
-        start.pack()
+        start1 = Entry(add)
+        start = Entry(add).get()
+        start1.pack()
         
         label4 = Label(add,
             text ="Finish Time:",
             foreground="purple")
         label4.pack()
-        finish = Entry(add)
-        finish.pack()
+        finish1 = Entry(add)
+        finish = Entry(add).get()
+        finish1.pack()
         """"
         label3 = Label(add,
             text ="Start Time:",
