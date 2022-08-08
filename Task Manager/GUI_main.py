@@ -148,6 +148,9 @@ while True:
         bt.pack()
     
     elif event == "Tasks": 
+        def destroy():
+            show_tasks.destroy()
+
         show_tasks = Tk()
         show_tasks.geometry("600x300")
         show_tasks.title("Tasks")
@@ -155,9 +158,11 @@ while True:
         label1 = Label(show_tasks,
             text = db.get_all_tasks())
         label1.pack() 
+        bt = Button(show_tasks,
+                    text ="OK", command=destroy)
+        bt.pack()
         
     elif event == "Person Task":
-        
         def show_person_tasks():
             name=name_e.get()
             label2 = Label(show_task,
