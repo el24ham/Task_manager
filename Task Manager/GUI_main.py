@@ -9,15 +9,17 @@ import database as db
 
 #Menu(title="Task Manager")
 
-layout = [[sg.Text("Hello there, welcome to our app")], [sg.Text("Select the option you want:")],[sg.Button("add")], [sg.Button("remove")], [sg.Button("person task")], [sg.Button("tasks")], [sg.Button("plot")], [sg.Button("exit")]]
-window = sg.Window("Task Manager", layout, margins=(300, 150))
+layout = [[sg.Text('Hello there, welcome to our app!', text_color='blue', font=('Any 15'))],
+          [sg.Text('Please select the option you want:', text_color='lightgreen', font=('Any 12'))],
+          [[sg.Button('Add', button_color='green')], [sg.Button('Remove', button_color='red')], [sg.Button('Person Task', button_color='blue')], [sg.Button('Tasks', button_color='teal')], [sg.Button('Plot', button_color='purple')], [sg.Button('Exit', button_color='dark red')]]]
 
+window = sg.Window('Task Manager', layout,margins=(300, 150), element_justification='center')
 
 while True:
     event, values = window.read()
-    if event == "exit" or event == sg.WIN_CLOSED:
+    if event == "Exit" or event == sg.WIN_CLOSED:
         break
-    elif event == "add": 
+    elif event == "Add": 
         
             
         def save_info():            
@@ -120,7 +122,7 @@ while True:
                     text ="Submit", command=save_info)
         bt.pack()
 
-    elif event == "remove":
+    elif event == "Remove":
         def remove_info():
             person=entry.get()
             db.remove_task(person)
@@ -145,7 +147,7 @@ while True:
                     text ="Submit", command=remove_info)
         bt.pack()
     
-    elif event == "tasks": 
+    elif event == "Tasks": 
         show_tasks = Tk()
         show_tasks.geometry("600x300")
         show_tasks.title("Tasks")
@@ -154,7 +156,7 @@ while True:
             text = db.get_all_tasks())
         label1.pack() 
         
-    elif event == "person task":
+    elif event == "Person Task":
         
         def show_person_tasks():
             name=name_e.get()
