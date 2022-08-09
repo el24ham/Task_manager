@@ -1,5 +1,3 @@
-import datetime
-from os import system
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from tabledef import Task

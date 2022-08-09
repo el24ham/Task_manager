@@ -1,6 +1,4 @@
-from posixpath import split
 import database as db
-
 import plot as p
 import os
 
@@ -26,14 +24,14 @@ hint()
 
 while True:
     
-    msg=input()
+    msg = input()
     
-    if msg=="exit": 
+    if msg == "exit": 
         
         clear()
         break
 
-    elif msg=="add" :
+    elif msg == "add" :
         
         clear()
         print("Name: ")
@@ -52,21 +50,21 @@ while True:
         print("Task added successfully")
         hint()
         
-    elif msg=="remove" :
+    elif msg == "remove" :
         
         clear()
         print("Name: ")
         person = input()
 
-        db_tasks= db.get_person_tasks(person)
+        db_tasks = db.get_person_tasks(person)
 
-        if len(db_tasks)==0:
+        if len(db_tasks) == 0:
             print("No task found")
         else:
             print(db.get_person_tasks(person))
             
         print("How do you want to remove?(1/2)\n1.All tasks\n2.Specific task")
-        if input()=="1":
+        if input() == "1":
             db.remove_all_tasks(person)
             clear()
             print("All tasks removed")
@@ -78,31 +76,31 @@ while True:
             print("Task removed")    
         hint()
      
-    elif msg=="tasks" :
+    elif msg == "tasks" :
         
         clear()
         print(db.get_all_tasks())
         hint()
         
-    elif msg=="person task" :
+    elif msg == "person task" :
         
         clear()
         print("Name: ")
         person = input()
-        db_tasks= db.get_person_tasks(person)
+        db_tasks = db.get_person_tasks(person)
         clear()
-        if len(db_tasks)==0:
+        if len(db_tasks) == 0:
             print("No task found")
             
         else:
             print(db_tasks)
         hint()
             
-    elif msg=="plot" :
+    elif msg == "plot" :
         
         clear()
         print("How do you want to see plot?(1/2)\n1.All people\n2.Specific person")
-        if input()=="1":
+        if input() == "1":
             clear()
             p.plot_show()
         else:
