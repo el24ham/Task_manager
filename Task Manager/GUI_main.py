@@ -13,7 +13,22 @@ import GUI_plot as gp
 from tkcalendar import *
 from tkcalendar import DateEntry
 from datetime import datetime
+from tkinter import simpledialog
+from tkinter import messagebox
 
+
+bool=True
+password_root = Tk()
+password_root.withdraw()
+password = simpledialog.askstring("Password", "Enter password:", show="*")
+
+password_root.destroy()  
+if password is None or password!='0000':
+    messagebox.showerror("Error", "Wrong password!")
+    bool=False
+
+      
+        
 """
 def login():
     
@@ -43,18 +58,18 @@ def login():
                     text ="Submit", command=check, bg='sky blue')
     bt.pack()
     
-login()    
+ login()
 """ 
-
+    
 layout = [[sg.Text('Hello there, welcome to our app!', text_color='blue', font=('Any 15'))],
           [sg.Text('Please select the option you want:', text_color='lightgreen', font=('Any 12'))],
           [[sg.Button('Add', button_color='green')], [sg.Button('Remove', button_color='red')], [sg.Button('Person Task', button_color='blue')], [sg.Button('Tasks', button_color='teal')], [sg.Button('Plot', button_color='purple')], [sg.Button('Exit', button_color='dark red')]]]
 
 window = sg.Window('Task Manager', layout,margins=(300, 150), element_justification='center')
 
-while True:
+while bool:
     event, values = window.read()
-    if event == "Exit" or event == sg.WIN_CLOSED:
+    if event == "Exit" or event == sg.WIN_CLOSED :
         break
     elif event == "Add": 
          
