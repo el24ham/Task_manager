@@ -26,7 +26,7 @@ def login():
             else:
                 pass   
     login_page = Tk()
-    login_page.geometry("600x300")
+    login_page.geometry("800x400")
     login_page.title("Login")
     login_page.configure(bg='light blue')
     
@@ -87,7 +87,7 @@ while True:
                 # label.place(x=225,y=270)
             
         add = Tk()
-        add.geometry("600x300")
+        add.geometry("800x400")
         add.title("Adding")
         add.configure(bg='light blue')
         
@@ -132,7 +132,7 @@ while True:
         # entry_f.pack()
         
         label5 = Label(add, text="", bg='light blue', fg='red', font='Any 10')
-        label5.place(x=225,y=270)
+        label5.place(x=327,y=270)
         """
         label3 = Label(add,
             text ="Start Time:",
@@ -186,20 +186,27 @@ while True:
         bt = Button(add,
                     text ="Submit", command=save_info, bg='sky blue')
         bt.pack()
+        add.resizable(0,0)
 
     elif event == "Remove":
         def remove_info():
             person=entry.get()
-            db.remove_task(person)
-            entry.delete(0, END)
-            label = Label(eliminate, text="Task removed sucessfully!", fg='green', bg='gold2', font='Any 10')
-            label.place(x=220,y=80)
+            if person=='':
+                # label = Label(add, text="You must enter a name!", bg='light blue', fg='red', font='Any 10')
+                # label.place(x=225,y=270)
+                label4.config(text="You must enter an id!", fg='red')  
+                label4.place(x=334,y=88)
+            else:
+                db.remove_task(person)
+                entry.delete(0, END)
+                label4.config(text="Task removed sucessfully!", fg='green')  
+                label4.place(x=324,y=88)
         
         def show():
             label1.config(text=db.get_all_tasks())
             
         eliminate = Tk()
-        eliminate.geometry("600x300")
+        eliminate.geometry("800x400")
         eliminate.title("Removing")
         eliminate.configure(bg='gold2')
         
@@ -211,22 +218,26 @@ while True:
         label2.pack()           
         entry = Entry(eliminate)
         entry.pack() 
+        
+        label4 = Label(eliminate, text="", fg='green', bg='gold2', font='Any 10')
+        
         bt1 = tkinter.Button(eliminate,
                     text ="Show tasks", command=show, bg='sky blue')
-        bt1.place(x=238, y=50)
+        bt1.place(x=335, y=50)
         bt2 = tkinter.Button(eliminate,
                     text ="Submit", command=remove_info, bg='sky blue')
-        bt2.place(x=315, y=50)
+        bt2.place(x=415, y=50)
         label1 = Label(eliminate,
             text=db.get_all_tasks(), bg='gold2')
-        label1.place(x=200,y=120)   
+        label1.place(x=300,y=120)  
+        eliminate.resizable(0,0) 
     
     elif event == "Tasks": 
         def destroy():
             show_tasks.destroy()
 
         show_tasks = Tk()
-        show_tasks.geometry("600x300")
+        show_tasks.geometry("800x400")
         show_tasks.title("Tasks")
         show_tasks.configure(bg='SpringGreen2')
         
@@ -237,18 +248,24 @@ while True:
         bt = Button(show_tasks,
                     text ="OK", command=destroy, bg='sky blue')
         bt.pack()
+        show_tasks.resizable(0,0)
         
     elif event == "Person Task":
         def show_person_tasks():
+            
             name=name_e.get()
-            label2 = Label(show_task,
-                text = db.get_person_tasks(name),
-                bg='PaleGreen3')
-            name_e.delete(0, END)
-            label2.pack() 
+            if name=='':
+                # label = Label(add, text="You must enter a name!", bg='light blue', fg='red', font='Any 10')
+                # label.place(x=225,y=270)
+                label3.config(text="You must enter a name!", fg='red')  
+                label3.place(x=326,y=80)
+            else:
+                label3.config(text=db.get_person_tasks(name), fg='black')
+                label3.pack()
+                name_e.delete(0, END)
             
         show_task = Tk()
-        show_task.geometry("600x300")
+        show_task.geometry("800x400")
         show_task.title("Person Tasks")
         show_task.configure(bg='PaleGreen3')
   
@@ -259,9 +276,12 @@ while True:
         name_e = Entry(show_task)
         name_e.pack()
         
+        label3 = Label(show_task, text="", bg='PaleGreen3', font='Any 10')
+        
         bt = Button(show_task,
                     text ="Submit", command=show_person_tasks, bg='sky blue')
         bt.pack()
+        show_task.resizable(0,0)
     
     elif event == "Plot":
         
@@ -269,7 +289,7 @@ while True:
             
             
             show_table = Tk()
-            show_table.geometry("600x300")
+            show_table.geometry("800x400")
             show_table.title("table")
             table_frame = Frame(show_table)
             table_frame.pack()
@@ -333,7 +353,7 @@ while True:
                 table_e.delete(0, END)
             
             show_table1 = Tk()
-            show_table1.geometry("600x300")
+            show_table1.geometry("800x400")
             show_table1.title("Table")
             label1 = Label(show_table1,
                 text ="Name:",
@@ -346,7 +366,7 @@ while True:
             bt.pack()
         
         plot = Tk()
-        plot.geometry("600x300")
+        plot.geometry("800x400")
         plot.title("Plot")
         plot.configure(bg='light blue')
         
@@ -362,6 +382,7 @@ while True:
         bt2 = Button(plot,
                      text="One Person", command=one_person, bg='cyan2')
         bt2.pack()
+        plot.resizable(0,0)
          
     mainloop()
                      
