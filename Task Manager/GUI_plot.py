@@ -34,7 +34,7 @@ def plot1_show(person):
         dic.update({task.id:list})
     
     
-    sort_orders=sorted(dic.items(),key=lambda x : x[1])
+    sort_orders=sorted(dic.items(),key=lambda item: item[1][1])
     
     
     start_list=[]
@@ -85,7 +85,7 @@ def plot_show():
         dic.update({task.id:list})
     
     
-    sort_orders=sorted(dic.items(),key=lambda x : x[1])
+    sort_orders=sorted(dic.items(),key=lambda item: item[1][1])
     start_list=[]
     finish_list=[]
     duration_list=[]

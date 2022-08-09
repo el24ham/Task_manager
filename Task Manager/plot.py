@@ -23,18 +23,18 @@ def plot_show1(person):
     for task in session.query(Task).filter(Task.name == person):
         list=[]
         dic[task.id]=[]
-        #format = '%Y/%m/%d'
+        format = '%Y/%m/%d'
         time1=task.start
-        #time11=datetime.strptime(time1, format).date()
-        list.append(time1)
+        time11=dt.strptime(time1, format).date()
+        list.append(time11)
         time2=task.finish
-        # time22=datetime.strptime(time2, format).date()
-        list.append(time2)
+        time22=dt.strptime(time2, format).date()
+        list.append(time22)
         list.append(task.task)
         dic.update({task.id:list})
     
     
-    sort_orders=sorted(dic.items(),key=lambda x : x[1])
+    sort_orders=sorted(dic.items(),key=lambda item: item[1][1])
     
     #name_list=[]
     start_list=[]
@@ -74,13 +74,13 @@ def plot_show():
     for task in session.query(Task).order_by(Task.id):
         list=[]
         dict1[task.id]=[]
-        # format = '%Y/%m/%d'
+        format = '%Y/%m/%d'
         time1=task.start
-        # time11=datetime.strptime(time1, format).date()
-        list.append(time1)
+        time11=dt.strptime(time1, format).date()
+        list.append(time11)
         time2=task.finish
-        # time22=datetime.strptime(time2, format).date()
-        list.append(time2)
+        time22=dt.strptime(time2, format).date()
+        list.append(time22)
         list.append(task.task)
         list.append(task.name)
         dict1.update({task.id:list})
@@ -108,10 +108,9 @@ def plot_show():
         name_list.append(name)
         start_list.append(start)
         finish_list.append(finish)
-        # time_interval = str(finish-start)
-        # d=time_interval.split(" ")
-        d = (dt.strptime(finish, "%Y/%m/%d") - dt.strptime(start, "%Y/%m/%d")).days
-        duration_list.append(d)
+        time_interval = str(finish-start)
+        d=time_interval.split(" ")
+        duration_list.append(int(d[0]))
         task_list.append(task)
     
         
