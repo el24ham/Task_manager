@@ -267,6 +267,7 @@ while True:
         
         def all_people():
             
+            
             show_table = Tk()
             show_table.geometry("600x300")
             show_table.title("table")
