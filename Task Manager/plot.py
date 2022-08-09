@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime as dt
 import os
 from turtle import color
 from unicodedata import name
@@ -23,13 +23,13 @@ def plot_show1(person):
     for task in session.query(Task).filter(Task.name == person):
         list=[]
         dic[task.id]=[]
-        format = '%Y/%m/%d'
+        #format = '%Y/%m/%d'
         time1=task.start
-        time11=datetime.strptime(time1, format).date()
-        list.append(time11)
+        #time11=datetime.strptime(time1, format).date()
+        list.append(time1)
         time2=task.finish
-        time22=datetime.strptime(time2, format).date()
-        list.append(time22)
+        # time22=datetime.strptime(time2, format).date()
+        list.append(time2)
         list.append(task.task)
         dic.update({task.id:list})
     
@@ -70,24 +70,25 @@ def plot_show1(person):
     print(tabulate(df,headers='keys',tablefmt='fancy_grid'))
     
 def plot_show():
-    dic={}
+    dict1={}
     for task in session.query(Task).order_by(Task.id):
         list=[]
-        dic[task.id]=[]
-        format = '%Y/%m/%d'
+        dict1[task.id]=[]
+        # format = '%Y/%m/%d'
         time1=task.start
-        time11=datetime.strptime(time1, format).date()
-        list.append(time11)
+        # time11=datetime.strptime(time1, format).date()
+        list.append(time1)
         time2=task.finish
-        time22=datetime.strptime(time2, format).date()
-        list.append(time22)
+        # time22=datetime.strptime(time2, format).date()
+        list.append(time2)
         list.append(task.task)
         list.append(task.name)
-        dic.update({task.id:list})
+        dict1.update({task.id:list})
     
     
-    sort_orders=sorted(dic.items(),key=lambda x : x[1])
-    
+    sort_orders=sorted(dict1.items(),key=lambda item: item[1][1])
+
+
     start_list=[]
     finish_list=[]
     duration_list=[]
@@ -107,9 +108,10 @@ def plot_show():
         name_list.append(name)
         start_list.append(start)
         finish_list.append(finish)
-        time_interval = str(finish-start)
-        d=time_interval.split(" ")
-        duration_list.append(int(d[0]))
+        # time_interval = str(finish-start)
+        # d=time_interval.split(" ")
+        d = (dt.strptime(finish, "%Y/%m/%d") - dt.strptime(start, "%Y/%m/%d")).days
+        duration_list.append(d)
         task_list.append(task)
     
         

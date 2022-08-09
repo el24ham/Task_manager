@@ -1,4 +1,6 @@
 from cProfile import label
+from this import s
+import tkinter
 from cgitb import text
 from os import remove
 from tracemalloc import start
@@ -8,6 +10,9 @@ from tkinter import *
 import database as db
 from tkinter import ttk
 import GUI_plot as gp
+from tkcalendar import *
+from tkcalendar import DateEntry
+from datetime import datetime
 
 """
 def login():
@@ -58,15 +63,28 @@ while True:
             task_text=entry_t.get()
             start_text=entry_s.get()
             finish_text=entry_f.get()
-            # l = Label(add,text=name_text+"-"+task_text+"-"+start_text+"-"+finish_text )
-            # l.pack()
-            entry_n.delete(0, END)
-            entry_t.delete(0, END)
-            entry_s.delete(0, END)
-            entry_f.delete(0, END)
-            db.insert_task(name_text,start_text,finish_text,task_text)
-            label = Label(add, text="Task saved sucessfully!", bg='light blue', fg='green', font='Any 10')
-            label.pack()
+            
+            if name_text=='':
+                # label = Label(add, text="You must enter a name!", bg='light blue', fg='red', font='Any 10')
+                # label.place(x=225,y=270)
+                label5.config(text="You must enter a name!")
+            elif task_text=='':
+                # label = Label(add, text="You must enter a task!", bg='light blue', fg='red', font='Any 10')
+                # label.place(x=225,y=270)
+                label5.config(text="You must enter a task!")
+            elif datetime.strptime(start_text, '%Y/%m/%d').date()>datetime.strptime(finish_text, '%Y/%m/%d').date():
+                # label = Label(add, text="Start time cannot come after end time!", bg='light blue', fg='red', font='Any 10')
+                # label.place(x=225,y=270)
+                label5.config(text="Start time cannot come after end time!")     
+            else:
+                entry_n.delete(0, END)
+                entry_t.delete(0, END)
+                entry_s.delete(0, END)
+                entry_f.delete(0, END)
+                db.insert_task(name_text,start_text,finish_text,task_text)
+                label5.config(text="Task saved sucessfully!",fg='green')  
+                # label = Label(add, text="Task saved sucessfully!", bg='light blue', fg='green', font='Any 10')
+                # label.place(x=225,y=270)
             
         add = Tk()
         add.geometry("600x300")
@@ -97,8 +115,10 @@ while True:
             bg='light blue',
             font='Any 10')
         label3.pack()
-        entry_s=Entry(add)
-        entry_s.pack()
+        entry_s = DateEntry(add, width= 16, background= "blue", foreground= "white",bd=2,date_pattern='Y/m/d')
+        entry_s.pack(pady = 20)
+        # entry_s=Entry(add)
+        # entry_s.pack()
         
         label4 = Label(add,
             text ="Finish Time:",
@@ -106,8 +126,13 @@ while True:
             bg='light blue',
             font='Any 10')
         label4.pack()
-        entry_f=Entry(add)
-        entry_f.pack()
+        entry_f = DateEntry(add,width= 16, background= "blue", foreground= "white",bd=2,date_pattern='Y/m/d')
+        entry_f.pack(pady = 20)
+        # entry_f=Entry(add)
+        # entry_f.pack()
+        
+        label5 = Label(add, text="", bg='light blue', fg='red', font='Any 10')
+        label5.place(x=225,y=270)
         """
         label3 = Label(add,
             text ="Start Time:",
@@ -168,27 +193,33 @@ while True:
             db.remove_task(person)
             entry.delete(0, END)
             label = Label(eliminate, text="Task removed sucessfully!", fg='green', bg='gold2', font='Any 10')
-            label.pack()
+            label.place(x=220,y=80)
+        
+        def show():
+            label1.config(text=db.get_all_tasks())
             
         eliminate = Tk()
         eliminate.geometry("600x300")
         eliminate.title("Removing")
         eliminate.configure(bg='gold2')
         
-        label1 = Label(eliminate,
-            text = db.get_all_tasks(), bg='gold2')
-        label1.pack() 
         label2 = Label(eliminate,
             text ="Task ID:",
             foreground="blue",
             bg='gold2',
             font='Any 10')
-        label2.pack()
+        label2.pack()           
         entry = Entry(eliminate)
         entry.pack() 
-        bt = Button(eliminate,
+        bt1 = tkinter.Button(eliminate,
+                    text ="Show tasks", command=show, bg='sky blue')
+        bt1.place(x=238, y=50)
+        bt2 = tkinter.Button(eliminate,
                     text ="Submit", command=remove_info, bg='sky blue')
-        bt.pack()
+        bt2.place(x=315, y=50)
+        label1 = Label(eliminate,
+            text=db.get_all_tasks(), bg='gold2')
+        label1.place(x=200,y=120)   
     
     elif event == "Tasks": 
         def destroy():

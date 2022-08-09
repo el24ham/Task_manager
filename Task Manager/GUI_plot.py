@@ -47,9 +47,7 @@ def plot1_show(person):
         start=sort_orders[i][1][0]
         finish=sort_orders[i][1][1]
         task=sort_orders[i][1][2]
-        
-        #s=start.strftime("%Y/%m/%d") + "-" + finish.strftime("%Y/%m/%d")
-        #name_list.append(s)
+    
         id_list.append(id)
         start_list.append(start)
         finish_list.append(finish)
