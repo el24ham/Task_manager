@@ -20,6 +20,13 @@ def search_name(person):
         s += task.name
     if s == "":
         return "false"   
+  
+def search_id(id):
+    s = ""
+    for task in session.query(Task).order_by(Task.id).filter(Task.id == id):
+        s += str(task.id)
+    if s == "":
+        return "false"  
             
 def insert_task(person, start, finish, task):
     task1 = Task(person, task, start, finish)

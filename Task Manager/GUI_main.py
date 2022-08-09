@@ -207,17 +207,22 @@ while bool:
 
     elif event == "Remove":
         def remove_info():
-            person=entry.get()
-            if person=='':
+            id=entry.get()
+            if id=='':
                 # label = Label(add, text="You must enter a name!", bg='light blue', fg='red', font='Any 10')
                 # label.place(x=225,y=270)
                 label4.config(text="You must enter an id!", fg='red')  
                 label4.place(x=334,y=88)
             else:
-                db.remove_task(person)
-                entry.delete(0, END)
-                label4.config(text="Task removed sucessfully!", fg='green')  
-                label4.place(x=324,y=88)
+                if db.search_id(id)=="false":
+                    label4.config(text="Nobody found!", fg='red')
+                    label4.place(x=354,y=88)
+                    entry.delete(0, END)
+                else:    
+                    db.remove_task(id)
+                    entry.delete(0, END)
+                    label4.config(text="Task removed sucessfully!", fg='green')  
+                    label4.place(x=324,y=88)
         
         def show():
             label1.config(text=db.get_all_tasks())
