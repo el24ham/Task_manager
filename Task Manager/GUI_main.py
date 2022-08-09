@@ -83,14 +83,17 @@ while bool:
                 # label = Label(add, text="You must enter a name!", bg='light blue', fg='red', font='Any 10')
                 # label.place(x=225,y=270)
                 label5.config(text="You must enter a name!")
+                label5.place(x=327,y=278)
             elif task_text=='':
                 # label = Label(add, text="You must enter a task!", bg='light blue', fg='red', font='Any 10')
                 # label.place(x=225,y=270)
                 label5.config(text="You must enter a task!")
+                label5.place(x=330,y=278)
             elif datetime.strptime(start_text, '%Y/%m/%d').date()>datetime.strptime(finish_text, '%Y/%m/%d').date():
                 # label = Label(add, text="Start time cannot come after end time!", bg='light blue', fg='red', font='Any 10')
                 # label.place(x=225,y=270)
                 label5.config(text="Start time cannot come after end time!")     
+                label5.place(x=293,y=278)
             else:
                 entry_n.delete(0, END)
                 entry_t.delete(0, END)
@@ -147,7 +150,6 @@ while bool:
         # entry_f.pack()
         
         label5 = Label(add, text="", bg='light blue', fg='red', font='Any 10')
-        label5.place(x=327,y=270)
         """
         label3 = Label(add,
             text ="Start Time:",
@@ -275,9 +277,14 @@ while bool:
                 label3.config(text="You must enter a name!", fg='red')  
                 label3.place(x=326,y=80)
             else:
-                label3.config(text=db.get_person_tasks(name), fg='black')
-                label3.pack()
-                name_e.delete(0, END)
+                if db.search_name(name) == "false":
+                    label3.config(text="Nobody found!", fg='red')
+                    label3.pack()
+                    name_e.delete(0, END)
+                else:    
+                    label3.config(text=db.get_person_tasks(name), fg='black')
+                    label3.pack()
+                    name_e.delete(0, END)
             
         show_task = Tk()
         show_task.geometry("800x400")
@@ -359,23 +366,41 @@ while bool:
                 # text=Text(show_table1, width=80, height=15)
                 # text.pack()
                 person=table_e.get()
-                id_list,task_list,start_list,finish_list,duration_list=gp.plot1_show(person)
-                for i in range(len(id_list)):
-                    # text.insert(END,str(id_list)+" "+str(task_list)+" "+str(start_list)+" "+str(finish_list)+" "+str(duration_list))
-                    my_table1.insert(parent='',index='end',iid=i,text='',
-                    values=(str(id_list[i]),str(task_list[i]),str(start_list[i]),str(finish_list[i]),str(duration_list[i])))
-                my_table1.pack()
-                table_e.delete(0, END)
-            
+                if person=='':
+                    # label = Label(add, text="You must enter a name!", bg='light blue', fg='red', font='Any 10')
+                    # label.place(x=225,y=270)
+                    label3.config(text="You must enter a name!", bg='PaleGreen3', fg='red')  
+                    label3.pack()
+                else:
+                    if db.search_name(person) == "false":
+                        label3.config(text="Nobody found!", bg='PaleGreen3', fg='red')
+                        label3.pack()
+                        table_e.delete(0, END)
+                    else:    
+                        id_list,task_list,start_list,finish_list,duration_list=gp.plot1_show(person)
+                        for i in range(len(id_list)):
+                            # text.insert(END,str(id_list)+" "+str(task_list)+" "+str(start_list)+" "+str(finish_list)+" "+str(duration_list))
+                            my_table1.insert(parent='',index='end',iid=i,text='',
+                            values=(str(id_list[i]),str(task_list[i]),str(start_list[i]),str(finish_list[i]),str(duration_list[i])))
+                        my_table1.pack()
+                        table_e.delete(0, END)
+                    
             show_table1 = Tk()
             show_table1.geometry("800x400")
             show_table1.title("Table")
             label1 = Label(show_table1,
                 text ="Name:",
-                foreground="blue", font='Any 10')
+                foreground="blue",
+                bg='PaleGreen3',
+                font='Any 10')
+            show_table1.configure(bg='PaleGreen3')
+            
             label1.pack()
             table_e = ttk.Entry(show_table1)
             table_e.pack() 
+            
+            label3 = Label(show_table1, text="", bg='PaleGreen3', font='Any 10')
+            
             bt = Button(show_table1,
                         text ="Submit", command=person_info, bg='sky blue')
             bt.pack()
