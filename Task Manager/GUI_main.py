@@ -222,7 +222,8 @@ while bool:
                 
             show_table = Tk()
             show_table.geometry("800x400")
-            show_table.title("table")
+            show_table.title("Table")
+            show_table.configure(bg='PaleGreen3')
             table_frame = Frame(show_table)
             table_frame.pack()
             my_table = ttk.Treeview(table_frame)
