@@ -59,7 +59,8 @@ while bool:
                 entry_s.delete(0, END)
                 entry_f.delete(0, END)
                 db.insert_task(name_text,start_text,finish_text,task_text)
-                label5.config(text = "Task saved sucessfully!",fg = 'green')  
+                label5.config(text = "Task saved sucessfully!",fg = 'green')
+                label5.place(x = 330,y = 278)
 
         add = Tk()
         add.geometry("800x400")
